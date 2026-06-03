@@ -1,156 +1,277 @@
 # Social Post SaaS
 
-Production-ready full-stack social feed for the **3W Full Stack Internship Assignment**. Mobile-first UI, JWT auth, Cloudinary images, likes, comments, notifications, and profile management — deployable to **Render + Vercel + MongoDB Atlas**.
+A production-ready full-stack social feed application built for the **3W Full Stack Internship Assignment**.
+
+The app allows users to create accounts, log in, create text/image posts, view a public feed, like posts, comment on posts, manage profiles, and interact with a clean mobile-first social UI.
+
+---
+
+## Live Links
+
+| Resource             | Link                                                   |
+| -------------------- | ------------------------------------------------------ |
+| GitHub Repository    | https://github.com/thelohithreddy/3W-Round1-Assignment |
+| Frontend Live App    | https://3-w-round1-assignment.vercel.app               |
+| Backend API          | https://threew-round1-backend.onrender.com             |
+| Backend Health Check | https://threew-round1-backend.onrender.com/api/health  |
+
+---
 
 ## Features
 
-### Core (assignment)
-- Secure signup / login with validation
-- JWT sessions (persist on refresh)
-- Create posts: text, image, or both
-- Global paginated feed + Load More
-- Like / unlike (optimistic UI)
-- Comments (bottom sheet)
-- Delete own posts
-- Profile: My Posts / Liked / Commented
-- MongoDB: **only** `users` and `posts` collections
+### Core Assignment Features
 
-### SaaS polish
-- Show / hide password on login & signup
-- **Edit post** (text, replace/remove image)
-- Post options menu: Edit · Delete
-- Dark mode (header toggle)
-- Notifications (new post from people you follow, follow, like, comment)
-- Followers / following lists
-- Share post (copy link + native share)
-- Emoji picker on posts & comments
-- Env validation on server start
-- GitHub Actions CI (build check)
-- Health endpoint: `GET /api/health`
+* Secure user signup and login
+* JWT-based authentication
+* Persistent login on page refresh
+* Create posts with text, image, or both
+* Upload post images using Cloudinary
+* Public feed showing posts from all users
+* Like and unlike posts
+* Add comments to posts
+* Show total likes and comments
+* Save usernames of users who liked or commented
+* Delete own posts
+* MongoDB database with only two main collections:
 
-## Tech stack
+  * users
+  * posts
 
-| Layer | Stack |
-|-------|--------|
-| Frontend | React 18, Vite, React Router, Axios, MUI, CSS |
-| Backend | Node.js, Express, Mongoose, JWT, bcrypt, Multer |
-| Database | MongoDB Atlas |
-| Media | Cloudinary |
+### UI / UX Features
 
-## Project structure
+* Mobile-first social feed layout
+* Clean card-based post design
+* Responsive layout for desktop and mobile
+* Dark mode support
+* Profile page
+* Bottom navigation
+* Image preview before posting
+* Comment modal / bottom sheet
+* Like and comment count updates
+* Loading and empty states
+* Professional SaaS-style UI polish
 
+---
+
+## Tech Stack
+
+| Layer          | Technology                                         |
+| -------------- | -------------------------------------------------- |
+| Frontend       | React, Vite, React Router, Axios, Material UI, CSS |
+| Backend        | Node.js, Express.js, Mongoose                      |
+| Authentication | JWT, bcryptjs                                      |
+| Database       | MongoDB Atlas                                      |
+| Image Upload   | Cloudinary, Multer                                 |
+| Deployment     | Vercel, Render                                     |
+
+---
+
+## Project Structure
+
+```text
+3W-Round1-Assignment/
+├── backend/
+├── frontend/
+├── README.md
+└── .gitignore
 ```
-├── frontend/     # React app
-├── backend/      # Express API
-├── DEPLOY.md     # Step-by-step deploy guide
-├── HOW_TO_RUN.md # Local Windows/PowerShell help
-└── README.md
-```
 
-## Local setup
+---
+
+## Local Setup
 
 ### Prerequisites
-- Node.js 18+
-- MongoDB Atlas (or local MongoDB)
-- Cloudinary account (required for image posts)
 
-### Backend
+* Node.js 18+
+* MongoDB Atlas account
+* Cloudinary account
+* Git
+
+---
+
+## Backend Setup
 
 ```bash
 cd backend
-cp .env.example .env
-# Edit .env — set MONGO_URI, JWT_SECRET, Cloudinary keys
 npm install
+```
+
+Create a `.env` file inside the `backend` folder:
+
+```env
+PORT=5001
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRE=7d
+CLIENT_URL=http://localhost:5173
+
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
+
+Run backend locally:
+
+```bash
 npm run dev
 ```
 
-API: `http://localhost:5000` (or your `PORT` in `.env`)
+Backend local URL:
 
-### Frontend
+```text
+http://localhost:5001
+```
+
+Health check:
+
+```text
+http://localhost:5001/api/health
+```
+
+---
+
+## Frontend Setup
 
 ```bash
 cd frontend
-cp .env.example .env
-# VITE_API_BASE_URL must match backend port, e.g. http://localhost:5000/api
 npm install
+```
+
+Create a `.env` file inside the `frontend` folder:
+
+```env
+VITE_API_BASE_URL=http://localhost:5001/api
+```
+
+Run frontend locally:
+
+```bash
 npm run dev
 ```
 
-App: `http://localhost:5173`
+Frontend local URL:
 
-> **Port tip:** If backend uses `5001`, set `VITE_API_BASE_URL=http://localhost:5001/api` in `frontend/.env`.
+```text
+http://localhost:5173
+```
 
-## Environment variables
+---
 
-### Backend (`backend/.env`)
+## Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Server port (default `5000`) |
-| `MONGO_URI` | MongoDB connection string |
-| `JWT_SECRET` | JWT signing secret |
-| `JWT_EXPIRE` | e.g. `7d` |
-| `CLIENT_URL` | Frontend URL for CORS |
-| `CLOUDINARY_*` | Image upload credentials |
+### Backend Environment Variables
 
-### Frontend (`frontend/.env`)
+| Variable              | Description                     |
+| --------------------- | ------------------------------- |
+| PORT                  | Backend server port             |
+| MONGO_URI             | MongoDB Atlas connection string |
+| JWT_SECRET            | Secret key for JWT signing      |
+| JWT_EXPIRE            | JWT expiry time                 |
+| CLIENT_URL            | Frontend URL for CORS           |
+| CLOUDINARY_CLOUD_NAME | Cloudinary cloud name           |
+| CLOUDINARY_API_KEY    | Cloudinary API key              |
+| CLOUDINARY_API_SECRET | Cloudinary API secret           |
 
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_BASE_URL` | e.g. `http://localhost:5000/api` |
+### Frontend Environment Variables
 
-## API summary
+| Variable          | Description          |
+| ----------------- | -------------------- |
+| VITE_API_BASE_URL | Backend API base URL |
 
-### Auth
-| Method | Route | Description |
-|--------|-------|-------------|
-| POST | `/api/auth/signup` | Register |
-| POST | `/api/auth/login` | Login |
-| GET | `/api/auth/me` | Current user |
+For deployed frontend:
 
-### Posts
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/api/posts` | Feed (paginated) |
-| POST | `/api/posts` | Create (multipart) |
-| PATCH | `/api/posts/:id` | Edit own post |
-| DELETE | `/api/posts/:id` | Delete own post |
-| POST | `/api/posts/:id/like` | Toggle like |
-| GET/POST | `/api/posts/:id/comments` | Comments |
+```env
+VITE_API_BASE_URL=https://threew-round1-backend.onrender.com/api
+```
 
-### Users (extras)
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/api/users/followers` | Your followers |
-| GET | `/api/users/following` | Your following |
-| GET | `/api/users/notifications` | Notifications |
+---
+
+## API Summary
+
+### Auth Routes
+
+| Method | Route              | Description                |
+| ------ | ------------------ | -------------------------- |
+| POST   | `/api/auth/signup` | Register a new user        |
+| POST   | `/api/auth/login`  | Login user                 |
+| GET    | `/api/auth/me`     | Get current logged-in user |
+
+### Post Routes
+
+| Method | Route                     | Description           |
+| ------ | ------------------------- | --------------------- |
+| GET    | `/api/posts`              | Get public feed posts |
+| POST   | `/api/posts`              | Create a new post     |
+| PATCH  | `/api/posts/:id`          | Edit own post         |
+| DELETE | `/api/posts/:id`          | Delete own post       |
+| POST   | `/api/posts/:id/like`     | Like or unlike a post |
+| GET    | `/api/posts/:id/comments` | Get post comments     |
+| POST   | `/api/posts/:id/comments` | Add comment to a post |
+
+### Health Route
+
+| Method | Route         | Description                 |
+| ------ | ------------- | --------------------------- |
+| GET    | `/api/health` | Check backend server status |
+
+---
 
 ## Deployment
 
-See **[DEPLOY.md](./DEPLOY.md)** for Render + Vercel + Atlas checklist.
+### Frontend
 
-Quick summary:
-1. Push to GitHub (no `.env` files).
-2. Deploy backend on **Render** (`backend` root, `npm start`).
-3. Deploy frontend on **Vercel** (`frontend` root, `npm run build`).
-4. Set `VITE_API_BASE_URL` and `CLIENT_URL` to match live URLs.
+The frontend is deployed on **Vercel**.
 
-## Data model note
+Live app:
 
-Social graph and notifications are stored as **embedded arrays inside `users`** (not separate collections), to satisfy the two-collection rule while supporting follow/notify features.
+```text
+https://3-w-round1-assignment.vercel.app
+```
 
-## Screenshots
+### Backend
 
-_Add: Login, Feed, Create Post, Edit Post, Comments, Profile, Notifications._
+The backend is deployed on **Render**.
 
-## Links
+Backend API:
 
-| Resource | URL |
-|----------|-----|
-| GitHub | _your-repo-url_ |
-| Live app | _your-vercel-url_ |
-| API | _your-render-url_ |
+```text
+https://threew-round1-backend.onrender.com
+```
 
-## License
+Health check:
 
-MIT — 3W Full Stack internship assignment.
+```text
+https://threew-round1-backend.onrender.com/api/health
+```
+
+### Database
+
+MongoDB Atlas is used as the cloud database.
+
+### Media Storage
+
+Cloudinary is used for storing uploaded post images.
+
+---
+
+## Important Note
+
+The backend is hosted on Render free tier. The first request after inactivity may take a few seconds because the server may need to wake up.
+
+---
+
+## Security Notes
+
+* Passwords are hashed using bcryptjs before storing in MongoDB.
+* JWT is used for protected routes.
+* Secret keys and database credentials are stored in environment variables.
+* `.env` files are not pushed to GitHub.
+* Only `.env.example` files are included for reference.
+
+---
+
+## Author
+
+**Lohith Reddy**
+
+3W Full Stack Internship Assignment
