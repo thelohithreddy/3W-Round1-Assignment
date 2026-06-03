@@ -16,6 +16,27 @@ The app allows users to create accounts, log in, create text/image posts, view a
 | Backend Health Check | https://threew-round1-backend.onrender.com/api/health  |
 
 ---
+## Screenshots
+
+### Login Page
+![Login Page](login.png)
+
+### Signup Page
+![Signup Page](signup.png)
+
+### Social Feed
+![Social Feed](feed.png)
+
+### Create Post
+![Create Post](create-post.png)
+
+### Profile Page
+![Profile Page](profile.png)
+
+### Dark Mode and Notifications
+![Dark Mode Notifications](dark-notifications.png)
+
+---
 
 ## Features
 
